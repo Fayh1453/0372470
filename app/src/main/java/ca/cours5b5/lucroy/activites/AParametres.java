@@ -3,6 +3,8 @@ package ca.cours5b5.lucroy.activites;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import ca.cours5b5.lucroy.R;
 
@@ -17,5 +19,8 @@ public class AParametres extends AppCompatActivity {
             Log.d("MonEtiquette","Bonjour paysage!");
         else
             Log.d("MonEtiquette","Bonjour portrait!");
+
+
     }
+
 }

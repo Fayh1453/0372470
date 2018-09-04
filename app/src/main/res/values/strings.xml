@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">LucRoy</string>
     <string name="identifiant">Bonjour!</string>
+    <string name="lblHauteur">Hauteur:</string>
+    <string name="lblLargeur">Largeur:</string>
+    <string name="lblGagner">Pour gagner:</string>
 </resources>

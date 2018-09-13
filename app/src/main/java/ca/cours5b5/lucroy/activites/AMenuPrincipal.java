@@ -24,7 +24,6 @@ public class AMenuPrincipal extends Activite {
 
                 boutonPara();
 
-
             }
         });
     }

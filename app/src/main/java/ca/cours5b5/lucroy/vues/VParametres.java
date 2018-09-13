@@ -6,9 +6,13 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
+
+import java.util.List;
 
 import ca.cours5b5.lucroy.R;
 import ca.cours5b5.lucroy.global.GConstantes;
+import ca.cours5b5.lucroy.modeles.MParametres;
 
 public class VParametres extends Vue{
 
@@ -29,43 +33,39 @@ public class VParametres extends Vue{
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
+        Log.d("Atelier04",VParametres.class.getSimpleName()+"::onFinishInState");
+try {
 
-        Spinner monSpinner = this.findViewById(R.id.spinHauteur);
-        ArrayAdapter<Integer> adapter = new ArrayAdapter<>(this.getContext(), R.layout.support_simple_spinner_dropdown_item);
-        monSpinner.setAdapter(adapter);
-        for(int i = GConstantes.HMIN; i < GConstantes.HMAX+1; i++ ){
-            adapter.add(i);
-            if (GConstantes.HDEF == i){
-                monSpinner.setSelection(i - GConstantes.HMIN);
-            }
-        }
+    MParametres modele = MParametres.instance;
 
+    Spinner spinnerHauteur = this.findViewById(R.id.spinHauteur);
+    TextView lblHauteur = this.findViewById(R.id.lblHauteur);
 
-        monSpinner = this.findViewById(R.id.spinLargeur);
-        adapter = new ArrayAdapter<>(this.getContext(), R.layout.support_simple_spinner_dropdown_item);
-        monSpinner.setAdapter(adapter);
-        for(int i = GConstantes.LMIN; i < GConstantes.LMAX+1; i++ ){
-            adapter.add(i);
-            if (GConstantes.LDEF == i){
-                monSpinner.setSelection(i - GConstantes.LMIN);
-            }
-        }
+    Spinner spinnerLargeur = this.findViewById(R.id.spinLargeur);
+    TextView lblLargeur = this.findViewById(R.id.lblLargeur);
 
+    Spinner spinnerGagner = this.findViewById(R.id.spinGagner);
+    TextView lblGagner = this.findViewById(R.id.lblGagner);
 
-        monSpinner = this.findViewById(R.id.spinGagner);
-        adapter = new ArrayAdapter<>(this.getContext(), R.layout.support_simple_spinner_dropdown_item);
-        monSpinner.setAdapter(adapter);
-        for(int i = GConstantes.GMIN; i < GConstantes.GMAX+1; i++ ){
-            adapter.add(i);
-            if (GConstantes.GDEF == i){
-                monSpinner.setSelection(i - GConstantes.GMIN);
-            }
-        }
+    List<Integer> listeChoixHauteur = modele.getChoixHauteur();
+    ArrayAdapter<Integer> adapthauteur = new ArrayAdapter<>(this.getContext(), R.layout.support_simple_spinner_dropdown_item, listeChoixHauteur);
+    spinnerHauteur.setAdapter(adapthauteur);
+    spinnerHauteur.setSelection(adapthauteur.getPosition(MParametres.instance.getHauteur()));
 
+    List<Integer> listeChoixLargeur = modele.getChoixLargeur();
+    ArrayAdapter<Integer> adapLargeur = new ArrayAdapter<>(this.getContext(), R.layout.support_simple_spinner_dropdown_item, listeChoixLargeur);
+    spinnerLargeur.setAdapter(adapLargeur);//TODO Erreur
+    spinnerLargeur.setSelection(adapLargeur.getPosition(MParametres.instance.getLargeur()));
 
+    List<Integer> listeChoixPourGagner = modele.getChoixPourGagner();
+    ArrayAdapter<Integer> adapPourGagner = new ArrayAdapter<>(this.getContext(), R.layout.support_simple_spinner_dropdown_item, listeChoixPourGagner);
+    spinnerGagner.setAdapter(adapPourGagner);
+    spinnerGagner.setSelection(adapPourGagner.getPosition(MParametres.instance.getPourGagner()));
+}catch (Exception e) {Log.e("error05",e.getMessage()); e.printStackTrace();}
     }
     static{
         Log.d("Atelier04",VParametres.class.getSimpleName()+"::static");
-        Log.d("Atelier04",VParametres.class.getSimpleName()+"::onFinishInState");
+        Class metaDonnees = VParametres.class;
+
     }
 }

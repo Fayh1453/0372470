@@ -4,4 +4,5 @@
     <string name="lblHauteur">Hauteur:</string>
     <string name="lblLargeur">Largeur:</string>
     <string name="lblGagner">Pour gagner:</string>
+    <string name="parametre">Parametres</string>
 </resources>

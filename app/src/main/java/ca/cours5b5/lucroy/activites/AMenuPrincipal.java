@@ -60,7 +60,7 @@ public class AMenuPrincipal extends Activite {
 
 
         Log.d("Atelier04", AMenuPrincipal.class.getSimpleName() + "::static");
-
+        Log.d("examen", AMenuPrincipal.class.getName() + "::static");
 
 
     }
@@ -75,3 +75,4 @@ public class AMenuPrincipal extends Activite {
 
 
 }
+//AP Create, VP Fini, APAR Ruse, APA Pause, AMENU RESUME

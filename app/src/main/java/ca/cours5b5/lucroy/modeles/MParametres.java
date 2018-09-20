@@ -146,10 +146,10 @@ public class MParametres extends Modele{
     }
 
     private void genererListeChoixLargeur(){
-        choixH = listeSpinner(GConstantes.LMIN, GConstantes.LMAX);
+        choixL = listeSpinner(GConstantes.LMIN, GConstantes.LMAX);
     }
 
     private void genererListeChoixPourGagner(){
-        choixH = listeSpinner(GConstantes.GMIN, GConstantes.GMAX);
+        choixG = listeSpinner(GConstantes.GMIN, GConstantes.GMAX);
     }
 }

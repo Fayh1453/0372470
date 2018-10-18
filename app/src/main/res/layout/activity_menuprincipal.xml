@@ -3,15 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteY="81dp">
 
     <Button
         android:id="@+id/boutPara"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="132dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="23dp"
         android:text="@string/parametre"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/boutJouer"
+        tools:layout_editor_absoluteX="138dp"
+        tools:layout_editor_absoluteY="200dp" />
+
+    <Button
+        android:id="@+id/boutJouer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="129dp"
+        android:text="@string/jouer"
+        app:layout_constraintEnd_toEndOf="@+id/boutPara"
+        app:layout_constraintStart_toStartOf="@+id/boutPara"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="138dp"
+        tools:layout_editor_absoluteY="129dp" />
 </ca.cours5b5.lucroy.vues.VMenuPrincipal>

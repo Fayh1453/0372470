@@ -29,6 +29,10 @@ public class MParametres extends Modele{
     public  static MParametres instance = new MParametres();
 
     @AttributSerialisable
+    public MParametresPartie parametresPartie;
+    private String __parametresPartie = "parametresPartie";
+
+    @AttributSerialisable
     public Integer hauteur = GConstantes.HDEF;
     private final String __hauteur ="hauteur";
 
@@ -46,6 +50,9 @@ public class MParametres extends Modele{
 
     public MParametres(){
         listeSpinner();
+
+
+        this.parametresPartie = new MParametresPartie(GConstantes.HDEF, GConstantes.LDEF, GConstantes.GDEF);
     }
 
     public List<Integer> getChoixHauteur(){
@@ -65,16 +72,20 @@ public class MParametres extends Modele{
        return choixG;
     }
 
+    public MParametresPartie getParametresPartie() {
+        return this.parametresPartie;
+    }
+
     public Integer getHauteur(){
-        return hauteur;
+        return this.hauteur;
     }
 
     public Integer getLargeur(){
-        return largeur;
+        return this.largeur;
     }
 
     public Integer getPourGagner(){
-        return pourGagner;
+        return this.pourGagner;
     }
 
     public void setHauteur(int hauteur){
@@ -89,11 +100,13 @@ public class MParametres extends Modele{
         this.pourGagner = pourGagner;
     }
 
+    public void setParametresPartie(MParametresPartie parametresPartie) { this.parametresPartie = parametresPartie;}
+
 
 
     @Override
     public void aPartirObjetJson(Map<String, Object> objetJson){
-        Log.d("Test","TestLOL");
+
         for(Map.Entry<String, Object> entry : objetJson.entrySet()){
             String cle = entry.getKey();
             Object valeur = entry.getValue();
@@ -121,7 +134,10 @@ public class MParametres extends Modele{
         return  objetJson;
 
     }
+    public static MParametres getInstance() {
 
+        return instance;
+    }
 
     private void listeSpinner(){
         hauteur = GConstantes.HDEF;

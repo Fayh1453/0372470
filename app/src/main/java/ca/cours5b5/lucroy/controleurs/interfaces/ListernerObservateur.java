@@ -2,7 +2,22 @@ package ca.cours5b5.lucroy.controleurs.interfaces;
 
 import ca.cours5b5.lucroy.modeles.Modele;
 
-public interface ListernerObservateur {
+public abstract class ListernerObservateur {
 
-    void reagirChangementAuModele(Modele modele);
+
+
+
+       public void reagirNouveauModele(Modele modele) {
+
+           this.reagirChangementAuModele(modele);
+
+       }
+
+
+
+
+   public abstract void reagirChangementAuModele(Modele modele);
+
+
+
 }

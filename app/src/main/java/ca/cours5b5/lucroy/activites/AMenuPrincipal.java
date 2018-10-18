@@ -18,11 +18,22 @@ public class AMenuPrincipal extends Activite {
         Log.d("Atelier04", AMenuPrincipal.class.getSimpleName() + "::onCreate");
 
         Button boutonParametres = this.findViewById(R.id.boutPara);
+
         boutonParametres.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 boutonPara();
+
+            }
+        });
+
+        Button boutonJouer = this.findViewById(R.id.boutJouer);
+        boutonJouer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                boutonJouer();
 
             }
         });
@@ -68,6 +79,14 @@ public class AMenuPrincipal extends Activite {
     public void boutonPara() {
 
         Intent monIntention = new Intent(this, AParametres.class);
+
+        this.startActivity(monIntention);
+
+    }
+
+    public void boutonJouer() {
+        Log.d("Atelier06", "Bouton Jouer");
+        Intent monIntention = new Intent(this, APartie.class);
 
         this.startActivity(monIntention);
 

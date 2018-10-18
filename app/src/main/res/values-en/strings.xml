@@ -6,4 +6,6 @@
     <string name="lblLargeur">Width:</string>
     <string name="lblGagner">To win:</string>
     <string name="parametre">Parameter</string>
+    <string name="jouer">Play</string>
+
 </resources>

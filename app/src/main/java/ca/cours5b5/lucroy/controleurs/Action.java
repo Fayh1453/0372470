@@ -34,7 +34,19 @@ public class Action {
 
 
     }
+    Action cloner() {
 
+        Action clone = new Action();
+
+        clone.fournisseur = fournisseur;
+        clone.listernerFournisseur = listernerFournisseur;
+
+        if (args != null) {
+            clone.args = args.clone();
+        }
+
+        return clone;
+    }
 
 
 

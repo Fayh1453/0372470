@@ -11,4 +11,14 @@ public class GConstantes {
     public final static int GMIN = 3;
     public final static int GMAX = 4;
     public final static int GDEF  = 4;
+
+    public static final int MARGE = 5;
+
+ public static final int ENTETE = 0;
+ public static final int ENTETE_COLONNE = 1;
+ public static final int ENTETE_RANGE = 3;
+ public static final int CASE_COLONNE = 1;
+ public static final int CASE_RANGE = 1;
+
+
 }

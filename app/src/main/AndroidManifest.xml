@@ -20,6 +20,8 @@
 
         <activity android:name=".activites.AParametres">
         </activity>
+        <activity android:name=".activites.APartie">
+        </activity>
     </application>
 
 </manifest>

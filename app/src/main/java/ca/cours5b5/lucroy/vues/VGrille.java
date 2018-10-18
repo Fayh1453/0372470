@@ -74,18 +74,15 @@ public class VGrille extends GridLayout{
     }
 
     private void initialiserTableauDeCases(int hauteur, int largeur) {
-        Log.d("BUG", "TeST4");
         this.cases = new VCase[hauteur][largeur];
     }
 
     private void initialiserColonnes(int largeur){
-        Log.d("BUG", "TeST5");
 
         this.colonnesDeCases = new ArrayList<>();
     }
 //TODO A MODIFIER
     private void ajouterEnTetes(int largeur){
-        Log.d("BUG", "TeST6");
         this.entetes = new ArrayList<>();
         VEntete entete;
         for (int colonne = 0; colonne < largeur; colonne++) {
@@ -97,7 +94,6 @@ public class VGrille extends GridLayout{
     }
 
     private LayoutParams getMiseEnPageEntete(int colonne){
-        Log.d("BUG", "TeST7");
 
         Spec specRangee = GridLayout.spec(GConstantes.ENTETE, GConstantes.ENTETE_RANGE);
         Spec specColonne = GridLayout.spec(colonne, GConstantes.ENTETE_COLONNE);
@@ -128,7 +124,6 @@ public class VGrille extends GridLayout{
                 this.addView(vCase, this.getMiseEnPageCase((hauteur - i) - 1, j));
             }
         }
-        Log.d("BUG", "Buf");
     }
 
     private LayoutParams getMiseEnPageCase(int rangee, int colonne){
@@ -146,7 +141,6 @@ public class VGrille extends GridLayout{
     }
 
     void afficherJetons(MGrille grille) {
-        Log.d("BUG", "TeST10");
         List<MColonne> colonnes = grille.getColonnes();
 
         for (int i = 0; i < colonnes.size(); i++) {
@@ -158,7 +152,6 @@ public class VGrille extends GridLayout{
     }
 
     private void afficherJeton(int colonne, int rangee, GCouleur jeton) {
-        Log.d("BUG", "TeST11");
         colonnesDeCases.get(colonne).get(rangee).afficherJeton(jeton);
     }
 

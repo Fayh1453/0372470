@@ -124,8 +124,6 @@ public class MPartie extends Modele implements Fournisseur{
 
     private List<Integer> listeCoupsAPartirJson(List<String> listeCoupsObjetJson) {
         final List<Integer> listInt = new ArrayList<>();
-//        listeCoupsObjetJson.forEach((coup) -> listInt.add(Integer.parseInt(coup)));
-
         for (String coup : listeCoupsObjetJson) {
             listInt.add(Integer.parseInt(coup));
         }

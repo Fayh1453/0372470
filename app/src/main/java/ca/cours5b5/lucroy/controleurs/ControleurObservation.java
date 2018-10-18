@@ -23,10 +23,8 @@ public class ControleurObservation {
     }
 
     public static void observerModele(String nomModele, final ListernerObservateur listernerObservateur){
-        Log.d("BUG", "TeST(START)");
 
         if (nomModele.equals(MParametres.class.getSimpleName())) {
-            Log.d("BUG", "IFONE)");
 
             MParametres mParametres = MParametres.getInstance();
 
@@ -36,19 +34,14 @@ public class ControleurObservation {
 
         } else if (nomModele.equals(MPartie.class.getSimpleName())) {
 
-            Log.d("BUG", "IFTWO)");
 
             partie = new MPartie(MParametresPartie.aPartirMParametres(MParametres.getInstance()));
-            Log.d("BUG", "IF3)");
 
             observations.put(partie, listernerObservateur);
-            Log.d("BUG", "IF4)");
 
             ControleurObservation.lancerObservation(partie);
-            Log.d("BUG", "IF5)");
 
         }
-        Log.d("BUG", "TeST(LAST)");
     }
 
     public static void lancerObservation(Modele modele) {

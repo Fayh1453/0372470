@@ -33,7 +33,6 @@ public class VPartie extends Vue {
 
     private MPartie getPartie(Modele modele) {
 
-        Log.d("BUG", "TeSTA");
         try {
             return (MPartie) modele;
         } catch (ErreurObservation e) {
@@ -78,14 +77,12 @@ public class VPartie extends Vue {
     }
 
     private void initialiserGrille(MPartie partie) {
-        Log.d("BUG", "TeSTE");
 
         this.grille.creerGrille(partie.getParametres().getHauteur(), partie.getParametres().getLargeur());
 
     }
 
     private void miseAjourGrille(MPartie partie) {
-        Log.d("BUG", "TeSTF");
 
         this.grille.afficherJetons(partie.getGrille());
 

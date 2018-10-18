@@ -94,4 +94,3 @@ public class AMenuPrincipal extends Activite {
 
 
 }
-//AP Create, VP Fini, APAR Ruse, APA Pause, AMENU RESUME

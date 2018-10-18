@@ -27,7 +27,6 @@ public class VCase extends AppCompatButton{
 
         super(context);
 
-        //this.setText(MessageFormat.format("{0}, {1}", rangee, colonne));
         this.setText(rangee+","+colonne);
 
     }

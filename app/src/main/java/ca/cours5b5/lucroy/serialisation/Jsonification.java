@@ -1,26 +1,27 @@
 package ca.cours5b5.lucroy.serialisation;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.Map;
 
-import ca.cours5b5.lucroy.activites.AParametres;
+import ca.cours5b5.lucroy.exceptions.ErreurSerialisation;
 
-public class Jsonification {
+public final class Jsonification {
 
-    private static Gson gson = new GsonBuilder().create();
+    private Jsonification(){}
 
-    public static Map<String, Object> enObjetJson(String json){
-        Map<String, Object>objetJson=gson.fromJson(json, Map.class);
-        return objetJson;
+    private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+    public static Map<String, Object> aPartirChaineJson(String json) throws ErreurSerialisation {
+
+        return gson.fromJson(json, Map.class);
+
     }
 
-    public static String enChaine(Map<String, Object> objetJson){
-       String chaineJson = gson.toJson(objetJson);
-       return chaineJson;
-    }
+    public static String enChaineJson(Map<String, Object> objetJson) throws ErreurSerialisation {
 
+        return gson.toJson(objetJson);
+
+    }
 }

@@ -1,5 +1,7 @@
 package ca.cours5b5.lucroy.global;
 
+
+
 public enum GCommande {
 
     CHOISIR_HAUTEUR,
@@ -7,5 +9,8 @@ public enum GCommande {
     CHOISIR_POUR_GAGNER,
 
     OUVRIR_MENU_PARAMETRES,
-    PLAY
+    DEMARRER_PARTIE,
+
+    JOUER_COUP_ICI,
+
 }

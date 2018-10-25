@@ -1,24 +1,20 @@
 package ca.cours5b5.lucroy.global;
 
-public class GConstantes {
+public final class GConstantes {
 
-   public final static int HMIN = 4;
-    public final static int HMAX = 10;
-    public final static int HDEF  = 6;
-    public final static int LMIN = 4;
-    public final static int LMAX = 10;
-    public final static int LDEF  = 7;
-    public final static int GMIN = 3;
-    public final static int GMAX = 4;
-    public final static int GDEF  = 4;
+    private GConstantes(){}
 
-    public static final int MARGE = 5;
+    public static final int LARGEUR_MIN = 4;
+    public static final int LARGEUR_MAX = 10;
+    public static final int LARGEUR_PAR_DEFAUT = 7;
 
- public static final int ENTETE = 0;
- public static final int ENTETE_COLONNE = 1;
- public static final int ENTETE_RANGE = 3;
- public static final int CASE_COLONNE = 1;
- public static final int CASE_RANGE = 1;
+    public static final int HAUTEUR_MIN = 4;
+    public static final int HAUTEUR_MAX = 10;
+    public static final int HAUTEUR_PAR_DEFAUT = 6;
 
+    public static final int POUR_GAGNER_MIN = 3;
+    public static final int POUR_GAGNER_PAR_DEFAUT = 4;
+
+    public static final String EXTENSION_PAR_DEFAUT=".json";
 
 }

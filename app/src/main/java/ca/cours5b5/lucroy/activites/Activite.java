@@ -1,56 +1,45 @@
 package ca.cours5b5.lucroy.activites;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 
-import ca.cours5b5.lucroy.R;
+import ca.cours5b5.lucroy.controleurs.ControleurModeles;
+import ca.cours5b5.lucroy.donnees.Disque;
+import ca.cours5b5.lucroy.donnees.SauvegardeTemporaire;
+import ca.cours5b5.lucroy.modeles.MParametres;
+
 
 public abstract class Activite extends AppCompatActivity {
 
-
-@Override
-    protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menuprincipal);
-
-
-}
-
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        initialiserControleurModeles(savedInstanceState);
+        initialiserApplication();
 
     }
 
+    protected void initialiserControleurModeles(Bundle savedInstanceState) {
 
-    @Override
-    protected void onPause() {
-        super.onPause();
+        ControleurModeles.setSequenceDeChargement(
+                new SauvegardeTemporaire(savedInstanceState),
+                Disque.getInstance());
+        
+    }
+
+    protected void initialiserApplication(){
+
+        Disque.getInstance().setRepertoireRacine(getFilesDir());
 
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
 
+        ControleurModeles.sauvegarderModeleDansCetteSource(MParametres.class.getSimpleName(),
+                new SauvegardeTemporaire(outState));
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-    }
-
-
-
-
-static{
-
-
-}
-
 
 }

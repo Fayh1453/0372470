@@ -1,26 +1,32 @@
 package ca.cours5b5.lucroy.modeles;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
+import ca.cours5b5.lucroy.exceptions.ErreurSerialisation;
 import ca.cours5b5.lucroy.global.GCouleur;
 
-public class MGrille extends Modele {
-    @Override
-    public void aPartirObjetJson(Map<String, Object> objetJson) {
 
-    }
-
-    @Override
-    public Map<String, Object> enObjetJson() {
-        return null;
-    }
+public class MGrille extends Modele  {
 
     private List<MColonne> colonnes;
 
-    public MGrille(int largeur) {
+    public MGrille(int largeur){
+
+        colonnes = new ArrayList<>();
+
         initialiserColonnes(largeur);
+
+    }
+
+    private void initialiserColonnes(int largeur) {
+
+        for(int i=0; i<largeur; i++){
+
+            colonnes.add(new MColonne());
+
+        }
     }
 
 
@@ -28,14 +34,25 @@ public class MGrille extends Modele {
         return colonnes;
     }
 
+
     public void placerJeton(int colonne, GCouleur couleur) {
-        this.colonnes.get(colonne).placerJeton(couleur);
+
+        colonnes.get(colonne).placerJeton(couleur);
+
     }
 
-    private void initialiserColonnes(int largeur) {
-        colonnes = new ArrayList<>();
-        for (int i = 0; i < largeur; ++i) {
-            colonnes.add(new MColonne());
-        }
+    @Override
+    public void aPartirObjetJson(Map<String, Object> objetJson) throws ErreurSerialisation {
+
+        throw new UnsupportedOperationException();
+
     }
+
+    @Override
+    public Map<String, Object> enObjetJson() throws ErreurSerialisation {
+
+        throw new UnsupportedOperationException();
+
+    }
+
 }

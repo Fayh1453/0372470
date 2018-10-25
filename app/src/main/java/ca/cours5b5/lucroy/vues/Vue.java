@@ -3,11 +3,10 @@ package ca.cours5b5.lucroy.vues;
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
-import android.util.Log;
 
-import ca.cours5b5.lucroy.activites.AMenuPrincipal;
 
 public abstract class Vue extends ConstraintLayout {
+
     public Vue(Context context) {
         super(context);
     }
@@ -20,12 +19,4 @@ public abstract class Vue extends ConstraintLayout {
         super(context, attrs, defStyleAttr);
     }
 
-    protected void onFinishInflate() {
-        super.onFinishInflate();
-    }
-
-    static{
-
-    }
 }
-

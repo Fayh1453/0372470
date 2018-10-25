@@ -1,53 +1,34 @@
 package ca.cours5b5.lucroy.controleurs;
 
-import java.util.Objects;
 
 import ca.cours5b5.lucroy.controleurs.interfaces.Fournisseur;
-import ca.cours5b5.lucroy.controleurs.interfaces.ListernerFournisseur;
+import ca.cours5b5.lucroy.controleurs.interfaces.ListenerFournisseur;
 
 public class Action {
 
     Fournisseur fournisseur;
 
-    ListernerFournisseur listernerFournisseur;
+    ListenerFournisseur listenerFournisseur;
 
     Object[] args;
 
-    public void setArguments (Object... args){
-
-            this.args = args;
-
-    }
-    public void setFournisseur (Fournisseur fournisseur){
-
-        this.fournisseur = fournisseur;
-
-    }
-    public void setListernerFournisseur (Fournisseur fournisseur){
-
-        this.fournisseur = fournisseur;
-
+    public void setArguments(Object... args) {
+        this.args = args;
     }
 
     public void executerDesQuePossible(){
-
-
-
+        ControleurAction.executerDesQuePossible(this);
     }
-    Action cloner() {
+
+    Action cloner(){
 
         Action clone = new Action();
 
         clone.fournisseur = fournisseur;
-        clone.listernerFournisseur = listernerFournisseur;
+        clone.listenerFournisseur = listenerFournisseur;
 
-        if (args != null) {
-            clone.args = args.clone();
-        }
+        clone.args = (args == null) ? null : args.clone();
 
         return clone;
     }
-
-
-
 }

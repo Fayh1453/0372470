@@ -1,17 +1,24 @@
 package ca.cours5b5.lucroy.vues;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import ca.cours5b5.lucroy.R;
-import ca.cours5b5.lucroy.activites.AMenuPrincipal;
-import ca.cours5b5.lucroy.activites.AParametres;
+import ca.cours5b5.lucroy.controleurs.Action;
+import ca.cours5b5.lucroy.controleurs.ControleurAction;
+import ca.cours5b5.lucroy.global.GCommande;
 
-public class VMenuPrincipal extends Vue{
+
+public class VMenuPrincipal extends Vue {
+
+    private Button boutonParametres;
+    private Action actionParametres;
+
+    private Button boutonPartie;
+    private Action actionPartie;
+
     public VMenuPrincipal(Context context) {
         super(context);
     }
@@ -24,10 +31,64 @@ public class VMenuPrincipal extends Vue{
         super(context, attrs, defStyleAttr);
     }
 
+    @Override
+    protected void onFinishInflate(){
+        super.onFinishInflate();
 
+        recupererControles();
 
-    static{
-        Log.d("Atelier04",VMenuPrincipal.class.getSimpleName()+"::static");
-        Log.d("Atelier04",VMenuPrincipal.class.getSimpleName()+"::onFinishInState");
+        demanderActions();
+
+        installerListeners();
+
     }
+
+
+    private void recupererControles() {
+
+        boutonParametres = findViewById(R.id.bouton_parametres);
+
+        boutonPartie = findViewById(R.id.bouton_partie);
+
+    }
+
+    private void demanderActions() {
+
+        actionParametres = ControleurAction.demanderAction(GCommande.OUVRIR_MENU_PARAMETRES);
+
+        actionPartie = ControleurAction.demanderAction(GCommande.DEMARRER_PARTIE);
+
+    }
+
+
+    private void installerListeners() {
+
+        installerListenerParametres();
+
+        installerListenerPartie();
+
+    }
+
+    private void installerListenerPartie() {
+
+        boutonPartie.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                actionPartie.executerDesQuePossible();
+            }
+        });
+
+    }
+
+    private void installerListenerParametres() {
+
+        boutonParametres.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                actionParametres.executerDesQuePossible();
+            }
+        });
+
+    }
+
 }

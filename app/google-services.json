@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "928501446705",
+    "firebase_url": "https://luc-roy.firebaseio.com",
+    "project_id": "luc-roy",
+    "storage_bucket": "luc-roy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:928501446705:android:ddc9712f54e6ec3c",
+        "android_client_info": {
+          "package_name": "ca.cours5b5.lucroy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "928501446705-3kk0kjvju5t100oi2puh8ecpc6cm74ba.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ca.cours5b5.lucroy",
+            "certificate_hash": "53ad33d8a937c9d6a1f3f6fd0e9e71a77d1e880c"
+          }
+        },
+        {
+          "client_id": "928501446705-m2ndq5964d71di32bl95peq811o8u7bp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnEUvnj2l5mOkZ1O7PI6P5j72SwyY-LU8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "928501446705-m2ndq5964d71di32bl95peq811o8u7bp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

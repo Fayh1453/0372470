@@ -65,7 +65,7 @@ public class AMenuPrincipal extends Activite implements Fournisseur {
     }
 
     private void fournirActionConnexion() {
-
+        Log.d("Atelier11", "Fournir Action");
         ControleurAction.fournirAction(this,
                 GCommande.CONNEXION,
                 new ListenerFournisseur() {
@@ -86,13 +86,13 @@ public class AMenuPrincipal extends Activite implements Fournisseur {
     }
 
     private void transitionPartie(){
-
         Intent intentionParametres = new Intent(this, APartie.class);
         startActivity(intentionParametres);
 
     }
 
     private void transitionConnexion(){
+        Log.d("Atelier11", "Click!");
 
         List<AuthUI.IdpConfig> fournisseursDeConnexion = new ArrayList<>();
 
@@ -104,7 +104,7 @@ public class AMenuPrincipal extends Activite implements Fournisseur {
                 .createSignInIntentBuilder()
                 .setAvailableProviders(fournisseursDeConnexion)
                 .build();
-
+        Log.d("Atelier11", "Click!");
         this.startActivityForResult(intentionConnexion, GConstantes.CODE_CONNEXION);
 
     }
@@ -124,16 +124,9 @@ public class AMenuPrincipal extends Activite implements Fournisseur {
                 Log.d("Atelier11", "PAS OK!");
 
 
-
             }
 
-
-
         }
-
-
-
-
 
     }
 

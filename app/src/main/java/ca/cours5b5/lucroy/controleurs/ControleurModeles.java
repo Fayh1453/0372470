@@ -13,6 +13,7 @@ import ca.cours5b5.lucroy.modeles.MParametresPartie;
 import ca.cours5b5.lucroy.modeles.MPartie;
 import ca.cours5b5.lucroy.modeles.Modele;
 import ca.cours5b5.lucroy.donnees.Disque;
+import ca.cours5b5.lucroy.usagers.UsagerCourant;
 
 public final class ControleurModeles {
 
@@ -134,6 +135,12 @@ public final class ControleurModeles {
 
             }
         }
+    }
+
+    private static String getCheminSauvegarde(String nomModele) {
+
+        return nomModele + UsagerCourant.getId();
+
     }
 
 }

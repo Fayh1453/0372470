@@ -102,7 +102,7 @@ public class VMenuPrincipal extends Vue {
 
     private void installerListenerConnexion() {
 
-        boutonParametres.setOnClickListener(new OnClickListener() {
+        boutonConnexion.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 actionConnexion.executerDesQuePossible();

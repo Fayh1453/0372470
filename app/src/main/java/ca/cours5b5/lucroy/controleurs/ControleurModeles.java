@@ -139,7 +139,7 @@ public final class ControleurModeles {
 
     private static String getCheminSauvegarde(String nomModele) {
 
-        return nomModele + UsagerCourant.getId();
+        return nomModele + "/"+ UsagerCourant.getId();
 
     }
 

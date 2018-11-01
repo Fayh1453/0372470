@@ -6,20 +6,21 @@ public class UsagerCourant {
 
 
     public static boolean siUsagerConnecte(){
-        boolean connecter = false;
+        boolean reussi = false;
 
         if(FirebaseAuth.getInstance().getCurrentUser() != null){
 
-            connecter = true;
+            reussi = true;
 
         }
-        return connecter;
+        return reussi;
 
     }
 
     public static String getId(){
 
-        return FirebaseAuth.getInstance().getCurrentUser().getUid();
+            return FirebaseAuth.getInstance().getCurrentUser().getUid();
+
 
     }
 

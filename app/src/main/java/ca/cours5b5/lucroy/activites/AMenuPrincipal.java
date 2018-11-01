@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.firebase.ui.auth.AuthUI;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +35,11 @@ public class AMenuPrincipal extends Activite implements Fournisseur {
         fournirActionDemarrerPartie();
 
         fournirActionConnexion();
+
+
+
+
+
     }
 
     private void fournirActionOuvrirMenuParametres() {

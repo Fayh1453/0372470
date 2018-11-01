@@ -79,16 +79,22 @@ public final class Disque extends SourceDeDonnees {
         }
     }
 
+    @Override
+    public void chargerModele(String cheminSauvegarde, ListenerChargement listenerChargement) {
 
-    private File getFichier(String nomModele) {
+    }
 
-        String nomFichier = getNomFichier(nomModele);
 
-        return new File(repertoireRacine, nomFichier);
+    private File getFichier(String cheminSauvegarde) {
+
+        String nomModele = getNomModele(cheminSauvegarde);
+
+        return new File(repertoireRacine, nomModele+".json");
 
     }
 
     private String getNomFichier(String nomModele) {
+
 
         return nomModele + GConstantes.EXTENSION_PAR_DEFAUT;
 

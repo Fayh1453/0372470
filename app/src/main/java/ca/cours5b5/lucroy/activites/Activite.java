@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import ca.cours5b5.lucroy.controleurs.ControleurModeles;
 import ca.cours5b5.lucroy.donnees.Disque;
 import ca.cours5b5.lucroy.donnees.SauvegardeTemporaire;
+import ca.cours5b5.lucroy.donnees.Serveur;
 import ca.cours5b5.lucroy.modeles.MParametres;
 
 
@@ -24,6 +25,7 @@ public abstract class Activite extends AppCompatActivity {
 
         ControleurModeles.setSequenceDeChargement(
                 new SauvegardeTemporaire(savedInstanceState),
+                Serveur.getInstance(),
                 Disque.getInstance());
         
     }

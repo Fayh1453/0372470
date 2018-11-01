@@ -16,7 +16,9 @@ public class Serveur  extends SourceDeDonnees{
 
 
     public static Serveur getInstance(){
+
         return instance;
+
     }
 
 
@@ -27,6 +29,11 @@ public class Serveur  extends SourceDeDonnees{
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference(cheminSauvegarde);
 
         reference.setValue(objetJson);
+    }
+
+    @Override
+    public void chargerModele(String cheminSauvegarde, ListenerChargement listenerChargement) {
+
     }
 
     @Override

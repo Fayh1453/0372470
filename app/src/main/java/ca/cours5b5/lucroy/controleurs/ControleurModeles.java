@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import ca.cours5b5.lucroy.controleurs.interfaces.Fournisseur;
+import ca.cours5b5.lucroy.donnees.Serveur;
 import ca.cours5b5.lucroy.donnees.SourceDeDonnees;
 import ca.cours5b5.lucroy.exceptions.ErreurModele;
 import ca.cours5b5.lucroy.modeles.MParametres;
@@ -31,6 +32,8 @@ public final class ControleurModeles {
 
         listeDeSauvegardes = new ArrayList<>();
         listeDeSauvegardes.add(Disque.getInstance());
+        listeDeSauvegardes.add(Serveur.getInstance());
+
 
     }
 
@@ -48,7 +51,14 @@ public final class ControleurModeles {
 
             Map<String, Object> objetJson = modele.enObjetJson();
 
-            sourceDeDonnees.sauvegarderModele(nomModele, objetJson);
+            if (sourceDeDonnees == Serveur.getInstance()){
+                Serveur.getInstance().sauvegarderModele(getCheminSauvegarde(nomModele), objetJson);
+            }else{
+
+                sourceDeDonnees.sauvegarderModele(nomModele, objetJson);
+            }
+
+
 
         }
     }

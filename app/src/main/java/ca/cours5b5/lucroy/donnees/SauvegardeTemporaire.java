@@ -35,9 +35,11 @@ public class SauvegardeTemporaire extends SourceDeDonnees {
 
     @Override
     public void sauvegarderModele(String cheminSauvegarde, Map<String, Object> objetJson) {
+
         if(bundle != null){
 
             String json = Jsonification.enChaineJson(objetJson);
+
             bundle.putString(getCle(cheminSauvegarde), json);
 
         }

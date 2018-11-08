@@ -87,9 +87,7 @@ public final class Disque extends SourceDeDonnees {
 
     private File getFichier(String cheminSauvegarde) {
 
-        String nomModele = getNomModele(cheminSauvegarde);
-
-        return new File(repertoireRacine, nomModele+".json");
+        return new File(repertoireRacine, getNomFichier(getNomModele(cheminSauvegarde)));
 
     }
 

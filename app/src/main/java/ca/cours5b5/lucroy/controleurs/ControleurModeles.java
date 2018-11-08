@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import ca.cours5b5.lucroy.controleurs.interfaces.Fournisseur;
+import ca.cours5b5.lucroy.controleurs.interfaces.ListenerGetModele;
 import ca.cours5b5.lucroy.donnees.Serveur;
 import ca.cours5b5.lucroy.donnees.SourceDeDonnees;
 import ca.cours5b5.lucroy.exceptions.ErreurModele;
@@ -25,6 +26,91 @@ public final class ControleurModeles {
     private static SourceDeDonnees[] sequenceDeChargement;
 
     private static List<SourceDeDonnees> listeDeSauvegardes;
+
+    static void getModele(String nomModele, ListenerGetModele listerGetModele){
+
+
+        Modele modele = modelesEnMemoire.get(nomModele);
+
+        if(modele == null){
+
+            creerModeleEtChargerDonnees(nomModele, listerGetModele);
+
+        }else{
+            reagirAuModele();
+        }
+
+
+
+
+
+    }
+
+    private static void creerModeleSelonNom(String nomModele, final ListenerGetModele listenerGetModele) throws ErreurModele {
+
+    }
+
+    private static void creerModeleEtChargerDonnees(final String nomModele, final ListenerGetModele listernerGetModele) {
+
+    }
+
+    private static void chargerDonnees(Modele modele, String nomModele, ListenerGetModele listenerGetModele) {
+
+    }
+
+    private static void chargementViaSequence(Modele modele, String cheminDeSauvegarde, ListenerGetModele listenerGetModele, int indiceSourceCourante) {
+
+    }
+
+    private static void chargementViaSourceCouranteOuSuivante(final Modele modele, final String cheminDeSauvegarde, final ListenerGetModele listenerGetModele, final int indiceSourceCourante) {
+
+    }
+
+    private static void termineChargementAvecDonnees(Map<String, Object> objetJson, Modele modele,ListenerGetModele listenerGetModele) {
+
+    }
+
+    private static void terminerChargement(Modele modele, ListenerGetModele listernerGetModele) {
+
+    }
+
+    private static void chargementViaSourceSuivante(Modele modele, String cheminDeSauvegarde, ListenerGetModele listenerGetModele, int indiceSourceCourante ) {
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     static {
 
@@ -75,6 +161,9 @@ public final class ControleurModeles {
 
         return modele;
     }
+
+
+
 
 
     private static Modele chargerViaSequenceDeChargement(final String nomModele){

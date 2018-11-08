@@ -4,9 +4,9 @@ import java.util.Map;
 
 public interface ListenerChargement {
 
-    void reagirSucces(Map<String, Object> objectJson);
+   void reagirSucces(Map<String, Object> objectJson);
 
-    void reagirErreur(Exception e);
+   void reagirErreur(Exception e);
 
 
 

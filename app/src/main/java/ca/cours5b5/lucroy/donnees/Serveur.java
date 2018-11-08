@@ -1,5 +1,7 @@
 package ca.cours5b5.lucroy.donnees;
 
+import android.util.Log;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -25,6 +27,7 @@ public class Serveur  extends SourceDeDonnees{
     @Override
     public void sauvegarderModele(String cheminSauvegarde, Map<String, Object> objetJson){
 
+        Log.d("AAAAAAAAAAAAAAAAAAAAA", "BBBBBBBBBBBBBBBBBBB");
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference(cheminSauvegarde);
 

@@ -14,4 +14,8 @@ public enum GCommande {
 
     JOUER_COUP_ICI,
 
+    JOINDRE_OU_CREER_PARTIE_RESEAU,
+    RECEVOIR_COUP_RESEAU,
+
+
 }

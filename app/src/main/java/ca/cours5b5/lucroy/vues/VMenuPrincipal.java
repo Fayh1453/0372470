@@ -22,6 +22,11 @@ public class VMenuPrincipal extends Vue {
     private Button boutonConnexion;
     private Action actionConnexion;
 
+    private Button boutonPartieEnLigne;
+    private Action actionPartieEnLigne;
+
+
+
     public VMenuPrincipal(Context context) {
         super(context);
     }
@@ -55,6 +60,8 @@ public class VMenuPrincipal extends Vue {
 
         boutonConnexion = findViewById(R.id.bouton_connexion);
 
+        boutonPartieEnLigne = findViewById(R.id.bouton_jouer_en_ligne);
+
     }
 
     private void demanderActions() {
@@ -64,6 +71,8 @@ public class VMenuPrincipal extends Vue {
         actionPartie = ControleurAction.demanderAction(GCommande.DEMARRER_PARTIE);
 
         actionConnexion = ControleurAction.demanderAction(GCommande.CONNEXION);
+
+        actionPartieEnLigne = ControleurAction.demanderAction(GCommande.JOINDRE_OU_CREER_PARTIE_RESEAU);
 
     }
 
@@ -75,6 +84,8 @@ public class VMenuPrincipal extends Vue {
         installerListenerPartie();
 
         installerListenerConnexion();
+
+        installerListenerPartieEnLigne();
 
     }
 
@@ -106,6 +117,17 @@ public class VMenuPrincipal extends Vue {
             @Override
             public void onClick(View view) {
                 actionConnexion.executerDesQuePossible();
+            }
+        });
+
+    }
+
+    private void installerListenerPartieEnLigne() {
+
+        boutonPartieEnLigne.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                actionPartieEnLigne.executerDesQuePossible();
             }
         });
 

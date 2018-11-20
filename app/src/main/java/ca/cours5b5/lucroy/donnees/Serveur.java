@@ -48,5 +48,12 @@ public class Serveur  extends SourceDeDonnees{
         return Jsonification.aPartirChaineJson(reference.toString());
     }
 
+    //@Override
+    public void detruireSauvegarde(String cheminSauvegarde){
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference(cheminSauvegarde);
+        reference.removeValue();
+    }
+
 
 }

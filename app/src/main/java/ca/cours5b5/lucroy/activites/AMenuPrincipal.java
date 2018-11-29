@@ -2,20 +2,27 @@ package ca.cours5b5.lucroy.activites;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.annotation.NonNull;
 
 import com.firebase.ui.auth.AuthUI;
-
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import ca.cours5b5.lucroy.R;
 import ca.cours5b5.lucroy.controleurs.ControleurAction;
+import ca.cours5b5.lucroy.modeles.MPartieReseau;
+import ca.cours5b5.lucroy.usagers.JoueursEnAttente;
+import ca.cours5b5.lucroy.controleurs.ControleurModeles;
 import ca.cours5b5.lucroy.controleurs.interfaces.Fournisseur;
 import ca.cours5b5.lucroy.controleurs.interfaces.ListenerFournisseur;
 import ca.cours5b5.lucroy.global.GCommande;
-import ca.cours5b5.lucroy.global.GConstantes;
+import ca.cours5b5.lucroy.modeles.MParametres;
+
+import static ca.cours5b5.lucroy.global.GConstantes.CODE_CONNEXION_FIREBASE;
 
 public class AMenuPrincipal extends Activite implements Fournisseur {
 
@@ -28,29 +35,60 @@ public class AMenuPrincipal extends Activite implements Fournisseur {
 
     }
 
+
     private void fournirActions() {
 
-        fournirActionOuvrirMenuParametres();
+        fournirActionParametres();
 
         fournirActionDemarrerPartie();
 
         fournirActionConnexion();
 
+        fournirActionDeconnexion();
 
-
-
+        fournirActionJoindreOuCreerPartieReseau();
 
     }
 
-    private void fournirActionOuvrirMenuParametres() {
+
+    private void fournirActionJoindreOuCreerPartieReseau() {
 
         ControleurAction.fournirAction(this,
-                GCommande.OUVRIR_MENU_PARAMETRES,
+                GCommande.JOINDRE_OU_CREER_PARTIE_RESEAU,
                 new ListenerFournisseur() {
                     @Override
                     public void executer(Object... args) {
 
-                        transitionParametres();
+                            transitionAttendreAdversaire();
+                    }
+                });
+    }
+
+
+    private void fournirActionDeconnexion() {
+
+        ControleurAction.fournirAction(this,
+                GCommande.DECONNEXION,
+                new ListenerFournisseur() {
+                    @Override
+                    public void executer(Object... args) {
+
+                        effectuerDeconnexion();
+
+                    }
+                });
+    }
+
+
+    private void fournirActionConnexion() {
+
+        ControleurAction.fournirAction(this,
+                GCommande.CONNEXION,
+                new ListenerFournisseur() {
+                    @Override
+                    public void executer(Object... args) {
+
+                        effectuerConnexion();
 
                     }
                 });
@@ -70,35 +108,46 @@ public class AMenuPrincipal extends Activite implements Fournisseur {
                 });
     }
 
-    private void fournirActionConnexion() {
-        Log.d("Atelier11", "Fournir Action");
+    private void fournirActionParametres() {
         ControleurAction.fournirAction(this,
-                GCommande.CONNEXION,
+                GCommande.OUVRIR_MENU_PARAMETRES,
                 new ListenerFournisseur() {
+
                     @Override
                     public void executer(Object... args) {
 
-                        transitionConnexion();
+                        transitionParametres();
 
                     }
                 });
     }
 
-    private void transitionParametres(){
+    private void transitionAttendreAdversaire() {
+
+        Intent intentionAttendreAdversaire = new Intent(this, AEnAttenteAdversaire.class);
+
+        startActivity(intentionAttendreAdversaire);
+
+    }
+
+
+    private void transitionParametres() {
 
         Intent intentionParametres = new Intent(this, AParametres.class);
         startActivity(intentionParametres);
 
     }
 
-    private void transitionPartie(){
-        Intent intentionParametres = new Intent(this, APartie.class);
-        startActivity(intentionParametres);
+
+    private void transitionPartie() {
+
+        Intent intentionPartie = new Intent(this, APartie.class);
+        startActivity(intentionPartie);
 
     }
 
-    private void transitionConnexion(){
-        Log.d("Atelier11", "Click!");
+
+    private void effectuerConnexion() {
 
         List<AuthUI.IdpConfig> fournisseursDeConnexion = new ArrayList<>();
 
@@ -110,30 +159,42 @@ public class AMenuPrincipal extends Activite implements Fournisseur {
                 .createSignInIntentBuilder()
                 .setAvailableProviders(fournisseursDeConnexion)
                 .build();
-        Log.d("Atelier11", "Click!");
-        this.startActivityForResult(intentionConnexion, GConstantes.CODE_CONNEXION);
 
+        this.startActivityForResult(intentionConnexion, CODE_CONNEXION_FIREBASE);
+
+    }
+
+
+    public void effectuerDeconnexion() {
+
+        AuthUI.getInstance()
+                .signOut(this)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                        // Rien
+
+                    }
+                });
     }
 
     @Override
-    protected void onActivityResult(int resquestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (resquestCode == GConstantes.CODE_CONNEXION){
+        if (requestCode == CODE_CONNEXION_FIREBASE) {
 
-            if (resultCode == RESULT_OK){
+            //IdpResponse response = IdpResponse.fromResultIntent(data);
 
-                Log.d("Atelier11", "OK!");
+            if (resultCode == RESULT_OK) {
 
+                // Connexion réussie
 
-            }else{
+            } else {
 
-                Log.d("Atelier11", "PAS OK!");
-
-
+                // connexion échouée
             }
-
         }
-
     }
+
 
 }

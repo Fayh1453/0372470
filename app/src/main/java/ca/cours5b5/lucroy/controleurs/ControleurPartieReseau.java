@@ -1,5 +1,8 @@
 package ca.cours5b5.lucroy.controleurs;
 
+
+import java.util.Map;
+
 import ca.cours5b5.lucroy.controleurs.interfaces.ListenerGetModele;
 import ca.cours5b5.lucroy.donnees.Serveur;
 import ca.cours5b5.lucroy.global.GCommande;
@@ -11,152 +14,176 @@ import ca.cours5b5.lucroy.usagers.UsagerCourant;
 
 public final class ControleurPartieReseau {
 
+    private ControleurPartieReseau() {
+    }
+
     private static final ControleurPartieReseau instance = new ControleurPartieReseau();
-    public static ControleurPartieReseau getInstance(){
+
+    public static ControleurPartieReseau getInstance() {
         return instance;
     }
 
     private ProxyListe proxyEmettreCoups;
     private ProxyListe proxyRecevoirCoups;
 
-    public void connecterAuServeur(){
+    public void creerEtDemarrerPartie(final String idJoueurHote, final String idJoueurInvite) {
 
-        /*
-         * Obtenir le modèle MPartieReseau
-         * Obtenir le id du modèle (qui est l'id du joueur hôte)
-         * Appeler connecterAuServeur(String idJouerHote)
-         *
-         */
+        final String nomModele = MPartieReseau.class.getSimpleName();
+
+        ControleurModeles.getModele(nomModele, new ListenerGetModele() {
+            @Override
+            public void reagirAuModele(Modele modele) {
+
+                MPartieReseau partie = (MPartieReseau) modele;
+
+                partie.setIdJoueurs(idJoueurHote, idJoueurInvite);
+
+                ControleurModeles.sauvegarderModele(nomModele);
+
+                demarrerPartie(partie);
+
+            }
+        });
+    }
+
+
+    private void demarrerPartie(MPartieReseau partie) {
+
+        Action actionDemarrerPartie = ControleurAction.demanderAction(GCommande.DEMARRER_PARTIE_RESEAU);
+
+        Map<String, Object> objetJsonPartie = partie.enObjetJson();
+
+        actionDemarrerPartie.setArguments(objetJsonPartie);
+
+        actionDemarrerPartie.executerDesQuePossible();
+
+    }
+
+
+    public void connecterAuServeur() {
 
         ControleurModeles.getModele(MPartieReseau.class.getSimpleName(), new ListenerGetModele() {
             @Override
             public void reagirAuModele(Modele modele) {
 
-                MPartieReseau modelePartieReseau = (MPartieReseau) modele;
+                MPartieReseau partie = (MPartieReseau) modele;
 
-                connecterAuServeur(modelePartieReseau.idJoueurHote);
+                connecterAuServeur(partie.getId());
 
             }
         });
-
     }
+
 
     private void connecterAuServeur(String idJoueurHote) {
 
-        /*
-         * Connecter en tant que joueur hôte OU en tant qu'invité, selon le cas
-         *
-         * Connecter les deux proxy au serveur
-         *
-         * Ajouter l'action RECEVOIR_COUP_RESEAU au proxyRecevoirCoups
-         *
-         */
+        String cheminCoupsJoueurHote = getCheminCoupsJoueurHote(idJoueurHote);
+        String cheminCoupsJoueurInvite = getCheminCoupsJoueurInvite(idJoueurHote);
 
-        if(UsagerCourant.getId().equals(idJoueurHote)){
+        if (UsagerCourant.estCeUsagerCourant(idJoueurHote)) {
 
-            connecterEnTantQueJoueurHote(getCheminCoupsJoueurHote(idJoueurHote), getCheminCoupsJoueurInvite(idJoueurHote));
+            connecterEnTantQueJoueurHote(cheminCoupsJoueurHote, cheminCoupsJoueurInvite);
 
         } else {
 
-            connecterEnTantQueJoueurInvite(getCheminCoupsJoueurHote(idJoueurHote), getCheminCoupsJoueurInvite(idJoueurHote));
+            connecterEnTantQueJoueurInvite(cheminCoupsJoueurHote, cheminCoupsJoueurInvite);
 
         }
 
-        proxyRecevoirCoups.setActionNouvelItem(GCommande.RECEVOIR_COUP_RESEAU);
-
-        proxyRecevoirCoups.connecterAuServeur();
-
-        proxyEmettreCoups.connecterAuServeur();
-
+        demarrerProxys();
 
     }
 
+
+    private void demarrerProxys() {
+
+        proxyRecevoirCoups.connecterAuServeur();
+        proxyEmettreCoups.connecterAuServeur();
+
+        proxyRecevoirCoups.setActionNouvelItem(GCommande.RECEVOIR_COUP_RESEAU);
+
+    }
+
+
     private void connecterEnTantQueJoueurHote(String cheminCoupsJoueurHote, String cheminCoupsJoueurInvite) {
 
-        /*
-         * Créer les proxy... avec les bons chemins
-         *
-         */
-
         proxyEmettreCoups = new ProxyListe(cheminCoupsJoueurHote);
-
         proxyRecevoirCoups = new ProxyListe(cheminCoupsJoueurInvite);
 
     }
 
+
     private void connecterEnTantQueJoueurInvite(String cheminCoupsJoueurHote, String cheminCoupsJoueurInvite) {
 
-        /*
-         * Créer les proxy... avec les bons chemins
-         *
-         */
-
+        proxyEmettreCoups = new ProxyListe(cheminCoupsJoueurInvite);
         proxyRecevoirCoups = new ProxyListe(cheminCoupsJoueurHote);
 
-        proxyEmettreCoups = new ProxyListe(cheminCoupsJoueurInvite);
-
     }
 
-    public void deconnecterDuServeur(){
 
-        /*
-         * Détruire les valeurs du proxyEmettreCoups
-         *
-         * Déconnecter les deux proxy
-         *
-         */
+    public void deconnecterDuServeur() {
 
-        proxyEmettreCoups.deconnecterDuServeur();
+        proxyEmettreCoups.detruireValeurs();
 
         proxyRecevoirCoups.deconnecterDuServeur();
+        proxyEmettreCoups.deconnecterDuServeur();
 
     }
 
-    public void transmettreCoup(Integer idColonne){
 
-        /*
-         * Transmettre avec proxyEmettreCoups
-         *
-         */
+    public void transmettreCoup(Integer idColonne) {
 
-        proxyEmettreCoups.ajouterValeur(idColonne);
+        proxyEmettreCoups.ajouterValeur(idColonne.toString());
 
     }
 
-    private String getCheminCoupsJoueurInvite(String idJoueurHote){
 
-        /*
-         * Utiliser p.ex. la constante CLE_COUPS_JOUR_INVITE
-         */
+    private String getCheminCoupsJoueurInvite(String idJoueurHote) {
 
-        return getCheminPartie(idJoueurHote) + '/' + GConstantes.CLE_COUPS_JOUEUR_INVITE;
+        String chemin = getCheminPartie(idJoueurHote);
 
-    }
+        chemin += GConstantes.SEPARATEUR_DE_CHEMIN;
 
-    private String getCheminCoupsJoueurHote(String idJoueurHote){
+        chemin += GConstantes.CLE_COUPS_JOUEUR_INVITE;
 
-        /*
-         * Utiliser p.ex. la constante CLE_COUPS_JOUR_HOTE
-         */
-
-        return getCheminPartie(idJoueurHote) + '/' + GConstantes.CLE_COUPS_JOUEUR_HOTE;
+        return chemin;
 
     }
 
-    private String getCheminPartie(String idJoueurHote){
 
-        /*
-         * Le chemin contient l'id de la partie (id du joueur hote)
-         */
+    private String getCheminCoupsJoueurHote(String idJoueurHote) {
 
-        return MPartieReseau.class.getSimpleName() + '/' + idJoueurHote;
+        String chemin = getCheminPartie(idJoueurHote);
+
+        chemin += GConstantes.SEPARATEUR_DE_CHEMIN;
+
+        chemin += GConstantes.CLE_COUPS_JOUEUR_HOTE;
+
+        return chemin;
 
     }
+
+
+    private String getCheminPartie(String idJoueurHote) {
+
+        String chemin = MPartieReseau.class.getSimpleName();
+
+        chemin += GConstantes.SEPARATEUR_DE_CHEMIN;
+
+        chemin += idJoueurHote;
+
+        return chemin;
+
+    }
+
 
     public void detruireSauvegardeServeur() {
 
+        String nomModele = MPartieReseau.class.getSimpleName();
 
-        Serveur.getInstance().detruireSauvegarde(getCheminPartie(UsagerCourant.getId()));
+        String cheminSauvegarde = ControleurModeles.getCheminSauvegarde(nomModele);
+
+        Serveur.getInstance().detruireSauvegarde(cheminSauvegarde);
 
     }
 

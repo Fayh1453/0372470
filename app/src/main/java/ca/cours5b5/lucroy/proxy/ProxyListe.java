@@ -1,5 +1,8 @@
 package ca.cours5b5.lucroy.proxy;
 
+
+import android.util.Log;
+
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,122 +18,141 @@ import ca.cours5b5.lucroy.controleurs.interfaces.Fournisseur;
 import ca.cours5b5.lucroy.global.GCommande;
 import ca.cours5b5.lucroy.global.GConstantes;
 
+public class ProxyListe extends Proxy implements Fournisseur {
+
+    private ChildEventListener childEventListener;
+
+    private Query requete;
+
+    private Action actionNouvelItem;
+    private Action actionItemDetruit;
+
+    private List<DatabaseReference> noeudsAjoutes;
+
+    public ProxyListe(String cheminServeur) {
+        super(cheminServeur);
+
+        noeudsAjoutes = new ArrayList<>();
+
+    }
 
 
-    public class ProxyListe extends Proxy implements Fournisseur {
+    public void setActionNouvelItem(GCommande commande){
 
-        private ChildEventListener childEventListener;
+        this.actionNouvelItem = ControleurAction.demanderAction(commande);
 
-        private Query requete;
+    }
 
-        private Action actionNouvelItem;
 
-        private List<DatabaseReference> noeudsAjoutes;
+    public void setActionItemDetruit(GCommande commande){
 
-        public ProxyListe(String cheminServeur) {
+        this.actionItemDetruit = ControleurAction.demanderAction(commande);
 
-            super(cheminServeur);
+    }
 
-            noeudsAjoutes = new ArrayList<>();
 
-        }
+    public void ajouterValeur(Object valeur) {
 
-        public void setActionNouvelItem(GCommande commande){
+        DatabaseReference noeudAjoute = noeudServeur.push();
 
-            actionNouvelItem = ControleurAction.demanderAction(commande);
+        noeudAjoute.setValue(valeur);
 
-        }
+        noeudsAjoutes.add(noeudAjoute);
 
-        public void ajouterValeur(Object valeur) {
+    }
 
-            DatabaseReference noeud = super.noeudServeur.push();
 
-            noeud.setValue(valeur);
+    @Override
+    public void connecterAuServeur(){
+        super.connecterAuServeur();
 
-            noeudsAjoutes.add(noeud);
+        creerListener();
 
-        }
+        requete = getRequete();
 
-        @Override
-        public void connecterAuServeur(){
+        requete.addChildEventListener(childEventListener);
 
-            super.connecterAuServeur();
+    }
 
-            creerListener();
 
-            requete = getRequete();
+    private void creerListener(){
 
-            requete.addChildEventListener(childEventListener);
+        childEventListener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-        }
+                Object valeur = dataSnapshot.getValue();
 
-        private void creerListener(){
+                if(actionNouvelItem != null){
 
-            childEventListener = new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    actionNouvelItem.setArguments(valeur);
 
-                    //GLog.autre(dataSnapshot);
-
-                    if(actionNouvelItem != null){
-
-                        actionNouvelItem.setArguments(dataSnapshot.getValue());
-
-                        actionNouvelItem.executerDesQuePossible();
-
-                    }
-
-                }
-
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    actionNouvelItem.executerDesQuePossible();
 
                 }
 
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            };
-
-        }
-
-        protected Query getRequete(){
-
-
-            return super.noeudServeur.orderByKey().limitToFirst(GConstantes.NOMBRE_DE_VALEURS_A_CHARGER_DU_SERVEUR_PAR_DEFAUT);
-
-        }
-
-        @Override
-        public void deconnecterDuServeur() {
-
-
-            super.deconnecterDuServeur();
-
-            requete.removeEventListener(childEventListener);
-
-        }
-
-        @Override
-        public void detruireValeurs() {
-
-            for (DatabaseReference noeud: noeudsAjoutes) {
-
-                noeud.removeValue();
 
             }
 
-        }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                Object valeur = dataSnapshot.getValue();
+
+                if(actionItemDetruit != null){
+
+                    actionItemDetruit.setArguments(valeur);
+
+                    actionItemDetruit.executerDesQuePossible();
+
+                }
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+    }
+
+
+    protected Query getRequete(){
+
+        return noeudServeur.orderByKey().limitToFirst(GConstantes.NOMBRE_DE_VALEURS_A_CHARGER_DU_SERVEUR_PAR_DEFAUT);
 
     }
+
+
+    @Override
+    public void deconnecterDuServeur() {
+
+        noeudServeur.removeEventListener(childEventListener);
+
+        noeudsAjoutes.clear();
+
+        super.deconnecterDuServeur();
+
+    }
+
+
+    @Override
+    public void detruireValeurs() {
+
+        for(DatabaseReference noeud : noeudsAjoutes){
+            noeud.removeValue();
+        }
+    }
+
+
+}

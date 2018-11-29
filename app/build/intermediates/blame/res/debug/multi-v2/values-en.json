@@ -1,0 +1,26 @@
+{
+    "logs": [
+        {
+            "outputFile": "C:\\Users\\Luc\\AndroidStudioProjects\\LucRoy\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-en\\values-en.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Luc\\AndroidStudioProjects\\LucRoy\\app\\src\\main\\res\\values-en\\strings.xml",
+                    "from": {
+                        "startLines": "30,29,4,20,21,23,25,7,13,14,17,18,8,27,11,5,9",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "857,819,57,522,566,614,687,147,337,376,433,477,192,763,286,100,236",
+                        "endColumns": "40,37,42,43,46,71,74,44,38,54,43,43,43,54,49,45,48",
+                        "endOffsets": "893,852,95,561,608,681,757,187,371,426,472,516,231,813,331,141,280"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,96,134,177,221,268,340,415,460,499,554,598,642,686,741,791,837",
+                        "endColumns": "40,37,42,43,46,71,74,44,38,54,43,43,43,54,49,45,48",
+                        "endOffsets": "91,129,172,216,263,335,410,455,494,549,593,637,681,736,786,832,881"
+                    }
+                }
+            ]
+        }
+    ]
+}

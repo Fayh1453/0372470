@@ -1,7 +1,7 @@
 package ca.cours5b5.lucroy.modeles;
 
-import java.util.Map;
 
+import java.util.Map;
 import ca.cours5b5.lucroy.controleurs.ControleurAction;
 import ca.cours5b5.lucroy.controleurs.ControleurPartieReseau;
 import ca.cours5b5.lucroy.controleurs.interfaces.Fournisseur;
@@ -9,61 +9,52 @@ import ca.cours5b5.lucroy.controleurs.interfaces.ListenerFournisseur;
 import ca.cours5b5.lucroy.exceptions.ErreurAction;
 import ca.cours5b5.lucroy.exceptions.ErreurSerialisation;
 import ca.cours5b5.lucroy.global.GCommande;
+import ca.cours5b5.lucroy.global.GConstantes;
+import ca.cours5b5.lucroy.global.GCouleur;
 import ca.cours5b5.lucroy.serialisation.AttributSerialisable;
+import ca.cours5b5.lucroy.usagers.UsagerCourant;
 
-public class MPartieReseau extends MPartie implements Fournisseur, Identifiable{
-
+public class MPartieReseau extends MPartie implements Fournisseur, Identifiable {
 
     @AttributSerialisable
     public String idJoueurInvite;
-    private String __idJoueurInvite = "idJoueurInvite";
+    private String __idJoueurInvite = GConstantes.CLE_ID_JOUEUR_INVITE;
 
     @AttributSerialisable
     public String idJoueurHote;
-    private String __idJoueurHote = "idJoueurHote";
+    private String __idJoueurHote = GConstantes.CLE_ID_JOUEUR_HOTE;
 
     public MPartieReseau(MParametresPartie parametres) {
-
         super(parametres);
 
         fournirActionRecevoirCoup();
 
     }
 
-    public String getId() {
-
-
-
-        return idJoueurHote;
-    }
 
     private void fournirActionRecevoirCoup() {
 
-        ControleurAction.fournirAction(this, GCommande.RECEVOIR_COUP_RESEAU, new ListenerFournisseur() {
-            @Override
-            public void executer(Object... args) {
-                try{
+        ControleurAction.fournirAction(this,
+                GCommande.RECEVOIR_COUP_RESEAU,
+                new ListenerFournisseur() {
+                    @Override
+                    public void executer(Object... args) {
 
-                    int coup = ((Long) args[0]).intValue();
+                        String idColonne = (String) args[0];
+                        recevoirCoupReseau(Integer.valueOf(idColonne));
 
-                    recevoirCoupReseau(coup);
-
-                } catch(Exception ex) {
-
-                    throw  new ErreurAction(ex);
-
-                }
-            }
-        });
+                    }
+                });
     }
+
 
     @Override
     protected void fournirActionPlacerJeton() {
 
-
         ControleurAction.fournirAction(this,
-                GCommande.JOUER_COUP_ICI,
+                GCommande.PLACER_JETON_ICI,
                 new ListenerFournisseur() {
+
                     @Override
                     public void executer(Object... args) {
                         try{
@@ -72,7 +63,9 @@ public class MPartieReseau extends MPartie implements Fournisseur, Identifiable{
 
                             jouerCoup(colonne);
 
+
                             ControleurPartieReseau.getInstance().transmettreCoup(colonne);
+
 
                         }catch(ClassCastException e){
 
@@ -83,16 +76,32 @@ public class MPartieReseau extends MPartie implements Fournisseur, Identifiable{
                 });
     }
 
-    private void recevoirCoupReseau(int colonne){
 
-        jouerCoup(colonne);
+    private void recevoirCoupReseau(int colonne){
+        if(super.siCoupLegal(colonne)){
+
+            super.jouerCoupLegal(colonne);
+
+        }
+    }
+
+    
+    @Override
+    protected boolean siCoupLegal(int colonne) {
+
+        return super.siCoupLegal(colonne);
 
     }
 
+
+    public void setIdJoueurs(String idJoueurHote, String idJoueurInvite){
+        this.idJoueurHote = idJoueurHote;
+        this.idJoueurInvite = idJoueurInvite;
+    }
+
+
     @Override
     public void aPartirObjetJson(Map<String, Object> objetJson) throws ErreurSerialisation {
-
-
         super.aPartirObjetJson(objetJson);
 
         idJoueurHote = (String) objetJson.get(__idJoueurHote);
@@ -100,9 +109,9 @@ public class MPartieReseau extends MPartie implements Fournisseur, Identifiable{
 
     }
 
+
     @Override
     public Map<String, Object> enObjetJson() throws ErreurSerialisation {
-
         Map<String, Object> objetJson = super.enObjetJson();
 
         objetJson.put(__idJoueurHote, idJoueurHote);
@@ -110,6 +119,11 @@ public class MPartieReseau extends MPartie implements Fournisseur, Identifiable{
 
         return objetJson;
 
+    }
+
+
+    public String getId() {
+        return idJoueurHote;
     }
 
 }

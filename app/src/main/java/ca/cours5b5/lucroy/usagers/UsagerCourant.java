@@ -2,26 +2,32 @@ package ca.cours5b5.lucroy.usagers;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-public class UsagerCourant {
+import ca.cours5b5.lucroy.global.GConstantes;
 
+public final class UsagerCourant {
+
+    private UsagerCourant(){}
 
     public static boolean siUsagerConnecte(){
-        boolean reussi = false;
-
-        if(FirebaseAuth.getInstance().getCurrentUser() != null){
-
-            reussi = true;
-
-        }
-        return reussi;
-
+        return FirebaseAuth.getInstance().getUid() != null;
     }
 
     public static String getId(){
 
-            return FirebaseAuth.getInstance().getCurrentUser().getUid();
+        if(siUsagerConnecte()){
 
+            return FirebaseAuth.getInstance().getUid();
 
+        }else{
+
+            return GConstantes.ID_PAR_DEFAUT;
+
+        }
     }
+
+    public static boolean estCeUsagerCourant(String idJoueur) {
+        return getId().equals(idJoueur);
+    }
+
 
 }

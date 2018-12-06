@@ -34,6 +34,7 @@ public class AParametres extends Activite implements Fournisseur{
                     @Override
                     public void executer(Object... args) {
 
+
                         ControleurModeles.detruireModele(MPartie.class.getSimpleName());
 
                     }

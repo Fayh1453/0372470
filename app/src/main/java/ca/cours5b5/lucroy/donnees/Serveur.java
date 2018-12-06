@@ -65,6 +65,7 @@ public final class Serveur extends SourceDeDonnees {
     public void detruireSauvegarde(String cheminSauvegarde) {
 
         DatabaseReference noeudModele = FirebaseDatabase.getInstance().getReference(cheminSauvegarde);
+
         noeudModele.removeValue();
 
     }

@@ -80,13 +80,7 @@ public final class Disque extends SourceDeDonnees {
     }
 
 
-    @Override
-    public void detruireSauvegarde(String cheminSauvegarde) {
 
-        File fichier = getFichier(cheminSauvegarde);
-        fichier.delete();
-
-    }
 
 
     private File getFichier(String cheminSauvegarde) {
@@ -103,6 +97,15 @@ public final class Disque extends SourceDeDonnees {
     private String getNomFichier(String nomModele) {
 
         return nomModele + GConstantes.EXTENSION_PAR_DEFAUT;
+
+    }
+
+    @Override
+    public void detruireSauvegarde(String cheminSauvegarde) {
+
+        File fichier = getFichier(cheminSauvegarde);
+
+        fichier.delete();
 
     }
 

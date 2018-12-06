@@ -9,6 +9,7 @@ import ca.cours5b5.lucroy.R;
 import ca.cours5b5.lucroy.controleurs.ControleurObservation;
 import ca.cours5b5.lucroy.controleurs.interfaces.ListenerObservateur;
 import ca.cours5b5.lucroy.exceptions.ErreurObservation;
+import ca.cours5b5.lucroy.global.GCouleur;
 import ca.cours5b5.lucroy.modeles.MParametresPartie;
 import ca.cours5b5.lucroy.modeles.MPartie;
 import ca.cours5b5.lucroy.modeles.Modele;
@@ -139,19 +140,17 @@ public class VPartie extends Vue {
 
     private void miseAJourNomJoueur(MPartie partie) {
 
-        switch(partie.getCouleurCourante()){
 
-            case ROUGE:
+        if (partie.getCouleurCourante()== GCouleur.ROUGE){
 
-                texteJoueurDeux.setVisibility(INVISIBLE);
-                texteJoueurUn.setVisibility(VISIBLE);
-                break;
+            texteJoueurDeux.setVisibility(INVISIBLE);
+            texteJoueurUn.setVisibility(VISIBLE);
 
-            case JAUNE:
 
-                texteJoueurUn.setVisibility(INVISIBLE);
-                texteJoueurDeux.setVisibility(VISIBLE);
-                break;
+        }else{
+
+            texteJoueurUn.setVisibility(INVISIBLE);
+            texteJoueurDeux.setVisibility(VISIBLE);
 
         }
     }

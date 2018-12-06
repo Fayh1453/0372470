@@ -14,6 +14,7 @@ import ca.cours5b5.lucroy.controleurs.interfaces.ListenerFournisseur;
 import ca.cours5b5.lucroy.global.GCommande;
 import ca.cours5b5.lucroy.global.GConstantes;
 import ca.cours5b5.lucroy.global.GCouleur;
+import ca.cours5b5.lucroy.usagers.UsagerCourant;
 
 public abstract class Vue extends ConstraintLayout implements Fournisseur {
     public Vue(Context context) {
@@ -48,6 +49,22 @@ public abstract class Vue extends ConstraintLayout implements Fournisseur {
 
                     }
                 });
+
+
+        ControleurAction.fournirAction(this,
+                GCommande.AFFICHER_MESSAGE_CONNECTION,
+                new ListenerFournisseur() {
+                    @Override
+                    public void executer(Object... args) {
+
+
+                        String message = getMessageConnection();
+
+
+                        afficherMessage(message);
+
+                    }
+                });
     }
 
     private void afficherMessagePuisExecuterAction(String message, final Action actionApresMessage) {
@@ -62,9 +79,16 @@ public abstract class Vue extends ConstraintLayout implements Fournisseur {
             public void onDismissed(Snackbar snackbar, int event) {
 
                 if (event == Snackbar.Callback.DISMISS_EVENT_TIMEOUT) {
+
                     Action actionEffacer = ControleurAction.demanderAction(GCommande.EFFACER);
+
                     actionApresMessage.executerDesQuePossible();
                     actionEffacer.executerDesQuePossible();
+
+                    if(UsagerCourant.siUsagerConnecte()){
+                        Action actionPartie = ControleurAction.demanderAction((GCommande.DEMARRER_PARTIE_RESEAU));
+                        actionPartie.executerDesQuePossible();
+                    }
 
                 }
 
@@ -84,7 +108,31 @@ public abstract class Vue extends ConstraintLayout implements Fournisseur {
     private void afficherMessage(String message) {
 
         Snackbar fenetreMessage = Snackbar.make(this, message, Snackbar.LENGTH_SHORT);
+
+
+        fenetreMessage.addCallback(new Snackbar.Callback() {
+
+            @Override
+            public void onDismissed(Snackbar snackbar, int event) {
+
+                if (event == Snackbar.Callback.DISMISS_EVENT_TIMEOUT) {
+
+                    Action actionConnexion = ControleurAction.demanderAction(GCommande.CONNEXION);
+
+
+                    actionConnexion.executerDesQuePossible();
+
+
+
+                }
+
+            }
+
+        });
+
         fenetreMessage.show();
+
+
 
     }
 
@@ -102,6 +150,14 @@ public abstract class Vue extends ConstraintLayout implements Fournisseur {
 
         return message;
 
+    }
+
+
+    public String getMessageConnection(){
+
+        String message= "Connection requise";
+
+        return message;
     }
 
 

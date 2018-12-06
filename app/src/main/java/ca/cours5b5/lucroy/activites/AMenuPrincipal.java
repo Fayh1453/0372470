@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import ca.cours5b5.lucroy.R;
+import ca.cours5b5.lucroy.controleurs.Action;
 import ca.cours5b5.lucroy.controleurs.ControleurAction;
 import ca.cours5b5.lucroy.modeles.MPartieReseau;
 import ca.cours5b5.lucroy.usagers.JoueursEnAttente;
@@ -186,8 +187,8 @@ public class AMenuPrincipal extends Activite implements Fournisseur {
             //IdpResponse response = IdpResponse.fromResultIntent(data);
 
             if (resultCode == RESULT_OK) {
-
-                // Connexion réussie
+                Intent intentionAttendreAdversaire = new Intent(this, AEnAttenteAdversaire.class);
+                startActivity(intentionAttendreAdversaire);
 
             } else {
 

@@ -29,6 +29,7 @@ public enum GCommande {
     RECEVOIR_JOUEUR_INVITE,
 
     EFFACER,
+    AFFICHER_MESSAGE_CONNECTION,
 
 
 

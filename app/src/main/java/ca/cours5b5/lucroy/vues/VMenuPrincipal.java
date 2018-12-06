@@ -1,6 +1,7 @@
 package ca.cours5b5.lucroy.vues;
 
 import android.content.Context;
+import android.support.design.widget.Snackbar;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
@@ -40,6 +41,7 @@ public class VMenuPrincipal extends Vue {
     private Button boutonConnexion;
     private Action actionConnexion;
     private Action actionDeconnexion;
+    private Action actionAfficherMessage;
 
 
     @Override
@@ -81,6 +83,8 @@ public class VMenuPrincipal extends Vue {
 
         actionDeconnexion = ControleurAction.demanderAction(GCommande.DECONNEXION);
 
+        actionAfficherMessage = ControleurAction.demanderAction(GCommande.AFFICHER_MESSAGE_CONNECTION);
+
 
     }
 
@@ -102,9 +106,31 @@ public class VMenuPrincipal extends Vue {
         });
 
         boutonPartieReseau.setOnClickListener(new OnClickListener() {
+
+
+
+
+
             @Override
             public void onClick(View v) {
-                actionPartieReseau.executerDesQuePossible();
+
+                if (UsagerCourant.siUsagerConnecte()) {
+
+                    actionPartieReseau.executerDesQuePossible();
+
+                }else  {
+
+                   actionAfficherMessage.executerDesQuePossible();
+
+                   boutonConnexion.setText(R.string.deconnexion);
+
+
+
+
+                }
+
+
+
             }
         });
 

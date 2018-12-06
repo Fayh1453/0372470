@@ -267,19 +267,19 @@ public final class ControleurModeles {
 
     public static void detruireModele(String nomModele) {
 
+        Modele modeleCourant = modelesEnMemoire.get(nomModele);
+
         detruireSauvegardes(nomModele);
 
-        Modele modele = modelesEnMemoire.get(nomModele);
-
-        if(modele != null){
+        if(modeleCourant != null){
 
             modelesEnMemoire.remove(nomModele);
 
-            ControleurObservation.detruireObservation(modele);
+            ControleurObservation.detruireObservation(modeleCourant);
 
-            if(modele instanceof Fournisseur){
+            if(modeleCourant instanceof Fournisseur){
 
-                ControleurAction.oublierFournisseur((Fournisseur) modele);
+                ControleurAction.oublierFournisseur((Fournisseur) modeleCourant);
 
             }
         }

@@ -17,9 +17,6 @@ public enum GCommande {
     CONNEXION,
     DECONNEXION,
 
-
-    EFFACER_PARTIE_COURANTE,
-
     RECEVOIR_COUP_RESEAU,
 
 
@@ -30,6 +27,8 @@ public enum GCommande {
 
     RECEVOIR_JOUEUR_EN_ATTENTE,
     RECEVOIR_JOUEUR_INVITE,
+
+    EFFACER,
 
 
 

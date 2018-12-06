@@ -101,9 +101,13 @@ public class MPartie extends Modele implements Fournisseur {
 
             ControleurPartie.getInstance().gagnerPartie(couleurCourante);
 
-        } else {
+        } else if (couleurCourante == GCouleur.ROUGE) {
+            couleurCourante = GCouleur.JAUNE;
+            }else{
 
-            prochaineCouleurCourante();
+            couleurCourante = GCouleur.ROUGE;
+
+
 
         }
     }
@@ -117,18 +121,6 @@ public class MPartie extends Modele implements Fournisseur {
     }
 
 
-    private void prochaineCouleurCourante() {
-
-        switch (couleurCourante) {
-
-            case ROUGE:
-                couleurCourante = GCouleur.JAUNE;
-                break;
-
-            case JAUNE:
-                couleurCourante = GCouleur.ROUGE;
-        }
-    }
 
 
     public MGrille getGrille() {

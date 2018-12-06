@@ -29,7 +29,7 @@ public class AParametres extends Activite implements Fournisseur{
     private void fournirActions() {
 
         ControleurAction.fournirAction(this,
-                GCommande.EFFACER_PARTIE_COURANTE,
+                GCommande.EFFACER,
                 new ListenerFournisseur() {
                     @Override
                     public void executer(Object... args) {

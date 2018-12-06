@@ -101,8 +101,10 @@ public final class ControleurAction {
 
             if(action.fournisseur == fournisseur){
 
-                action.fournisseur = null;
-                action.listenerFournisseur = null;
+                action.listenerFournisseur=null;
+
+                action.fournisseur=null;
+
 
             }
 

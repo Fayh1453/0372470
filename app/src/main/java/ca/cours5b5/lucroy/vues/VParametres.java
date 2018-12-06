@@ -79,7 +79,7 @@ public class VParametres extends Vue {
         installerListenerHauteur();
         installerListenerLargeur();
         installerListenerPourGagner();
-        installerListenerEffacerPartieCourante();
+        installerListenerEffacer();
     }
 
 
@@ -147,16 +147,16 @@ public class VParametres extends Vue {
         });
     }
 
-    private void installerListenerEffacerPartieCourante() {
+    private void installerListenerEffacer() {
 
-        final Action actionEffacerPartieCourante = ControleurAction.demanderAction(GCommande.EFFACER_PARTIE_COURANTE);
+        final Action actionEffacer = ControleurAction.demanderAction(GCommande.EFFACER);
 
 
         boutonEffacerPartieCourante.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                actionEffacerPartieCourante.executerDesQuePossible();
+                actionEffacer.executerDesQuePossible();
 
             }
         });

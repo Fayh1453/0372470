@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import ca.cours5b5.lucroy.R;
+import ca.cours5b5.lucroy.controleurs.Action;
 import ca.cours5b5.lucroy.controleurs.ControleurAction;
 import ca.cours5b5.lucroy.controleurs.ControleurModeles;
 import ca.cours5b5.lucroy.controleurs.interfaces.Fournisseur;
@@ -32,6 +33,10 @@ public class APartie extends Activite implements Fournisseur {
                 new ListenerFournisseur() {
                     @Override
                     public void executer(Object... args) {
+
+                        Action effacerSauvegarde = ControleurAction.demanderAction(GCommande.EFFACER);
+
+                        effacerSauvegarde.executerDesQuePossible();
 
                         quitterCetteActivite();
 
